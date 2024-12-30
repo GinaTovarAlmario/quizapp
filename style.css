@@ -68,3 +68,9 @@ body {
     /* the button initialy is hidden after is displayed so from none it goes block */
     display: none;
 }
+.correct{
+    background: lightgreen;
+}
+.incorrect{
+    background: red;
+}
