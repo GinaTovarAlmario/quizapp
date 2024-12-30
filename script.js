@@ -299,6 +299,9 @@ function startQuiz() {
 }
 
 function showQuestion() {
+
+    resetState();
+    
     // display question
     let currentQuestion = questions[currentQuestionIndex];
     let questionNo = currentQuestionIndex + 1;
