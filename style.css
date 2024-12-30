@@ -65,5 +65,6 @@ body {
     margin: 20px auto 0;
     border-radius: 4px;
     cursor: pointer;
-    display: block;
+    /* the button initialy is hidden after is displayed so from none it goes block */
+    display: none;
 }
