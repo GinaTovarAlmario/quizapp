@@ -359,9 +359,48 @@ function selectAnswer(event) {
         }
         button.disabled = true;
     });
-
     // Show the next button after an answer is selected
     nextButton.style.display = "block";
 }
+
+/**
+ * Displays the final score after completing the quiz.
+ * It resets the state, shows the score, and updates the "Next" button text to "Play again!".
+ * The "Next" button is displayed to allow the user to restart the quiz.
+ */
+function showScore() {
+    resetState();
+    questionElement.innerHTML = `You scored ${score} out of ${questions.length}`;
+    nextButton.innerHTML = "Play again!";
+    nextButton.style.display = "block";
+}
+
+/**
+ * Handles the behavior when the "Next" button is clicked.
+ * It increments the current question index and shows the next question if available.
+ * If there are no more questions, it displays the final score by calling `showScore`.
+ */
+function handleNextButton() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showScore();
+    }
+}
+
+/**
+ * Event listener for the "Next" button click event.
+ * If the current question index is less than the total number of questions, 
+ * it calls `handleNextButton` to move to the next question.
+ * If the quiz is complete, it restarts the quiz by calling `startQuiz`.
+ */
+nextButton.addEventListener("click", () => {
+    if (currentQuestionIndex < questions.length) {
+        handleNextButton();
+    } else {
+        startQuiz();
+    }
+});
 
 startQuiz();
