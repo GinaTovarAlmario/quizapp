@@ -291,6 +291,10 @@ const nextButton = document.getElementById("next-btn");
 let currentQuestionIndex = 0;
 let score = 0;
 
+/**
+ * Starts the quiz by resetting the score and showing the first question.
+ * Initializes the current question index and score, and shows the first question.
+ */
 function startQuiz() {
     currentQuestionIndex = 0;
     score = 0;
@@ -298,6 +302,10 @@ function startQuiz() {
     showQuestion();
 }
 
+/**
+ * Displays the current question and its possible answers.
+ * Clears the previous answers and shows the new question with buttons for answers.
+ */
 function showQuestion() {
 
     resetState();
@@ -313,13 +321,16 @@ function showQuestion() {
         button.innerHTML = answer.text;
         button.classList.add("btn");
         answerButtons.appendChild(button);
-        if(answer.correct){
+        if (answer.correct) {
             button.dataset.correct = answer.correct;
         }
         button.addEventListener("click", selectAnswer);
     })
 }
 
+/**
+ * Resets the state of the quiz by hiding the next button and clearing previous answers.
+ */
 function resetState() {
     nextButton.style.display = "none";
     while (answerButtons.firstChild) {
@@ -327,13 +338,29 @@ function resetState() {
     }
 }
 
-function selectAnswer(event){
-    const selectedBtn =  event.target;
+/**
+ * Handles the answer selection, marks the selected answer as correct or incorrect,
+ * disables all answer buttons, and shows the next button.
+ * @param {Event} event - The event triggered by clicking on an answer button.
+ */
+function selectAnswer(event) {
+    const selectedBtn = event.target;
     const isCorrect = selectedBtn.dataset.correct === "true";
-    if(isCorrect){
+    if (isCorrect) {
         selectedBtn.classList.add("correct");
-    } else{
+    } else {
         selectedBtn.classList.add("incorrect");
     }
+    // Disable all buttons and mark the correct ones
+    Array.from(answerButtons.children).forEach(button => {
+        if (button.dataset.correct === "true") {
+            button.classList.add("correct");
+        }
+        button.disabled = true;
+    });
+
+    // Show the next button after an answer is selected
+    nextButton.style.display = "block";
 }
+
 startQuiz();
